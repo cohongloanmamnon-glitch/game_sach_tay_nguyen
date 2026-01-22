@@ -68,13 +68,13 @@ p{font-size:1.1rem;line-height:1.6;color:var(--text);text-align:justify}
     border:5px solid #fff;
     box-shadow:0 4px 8px rgba(0,0,0,.15);
     position:relative;
-    background: #eee; /* Nền xám nhẹ khi ảnh chưa kịp tải */
+    background: #eee;
 }
 .img-box img{
     width:100%;height:100%;object-fit:cover;
     position:absolute;top:0;left:0;
     opacity:0;
-    transition:opacity 0.5s; /* 1. CHỈNH SỬA: Giảm từ 1s xuống 0.5s để ảnh hiện ra nhanh hơn */
+    transition:opacity 0.5s;
 }
 .img-box img.active{opacity:1}
 
@@ -119,7 +119,7 @@ button:disabled{background:#ccc}
     <div class="paper">
         <div class="face front center-box">
             <i class="fa-solid fa-sun icon-decor"></i>
-            <h1>TÂY NGUYÊN<br>KỲ THÚ</h1>
+            <h1>QUYỂN SÁCH TÂY NGUYÊN</h1>
             <p>Tác giả: Cô Trần Hồng Loan</p>
         </div>
         <div class="face back"></div>
@@ -157,7 +157,6 @@ button:disabled{background:#ccc}
             <h2>3. Sử thi Đam San</h2>
             <div class="img-box slideshow">
                 <img class="active" src="https://banmetravel.com/image/cache/catalog/tour/tay-nguyen/huyen-thoai-tay-nguyen-banme-travel-c005-468x572.jpg">
-		<img class="active" src="trang4.png">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6F6AAwR9SRAq4cbyCKGGeT-sIVLBjI_JMYA&s">
             </div>
             <p>Tiếng cồng chiêng vang vọng, kể về chàng Đam San dũng mãnh.</p>
@@ -166,26 +165,37 @@ button:disabled{background:#ccc}
         <div class="face back"></div>
     </div>
 
-<!-- Trang 5 -->
-<div class="paper">
-<div class="face front">
-<h2>4. Lễ hội</h2>
-<div class="img-box slideshow" id="festival">
-<img class="active" src="4.jpg" onerror="this.src="'https://banmetravel.com/image/cache/catalog/tour/tay-nguyen/huyen-thoai-tay-nguyen-banme-travel-c005-468x572.jpg'">
-<img src="lehoi1.jpg" onerror="this.src='https://placehold.co/400x300?text=Le+Hoi'">
-<img src="lehoi3.jpg" onerror="this.src='https://placehold.co/400x300?text=Le+Hoi'">
-<img src="lehoi5.jpg" onerror="this.src='https://placehold.co/400x300?text=Le+Hoi'">
-<img src="lehoi6.jpg" onerror="this.src='https://placehold.co/400x300?text=Le+Hoi'">
+    <div class="paper">
+        <div class="face front">
+            <h2>4. Lễ hội Cồng Chiêng</h2>
+            <div class="img-box slideshow">
+                <img class="active" src="lehoi1.jpg">
+               			 <img src="lehoi.jpg">
+               			 <img src="nhaccu.jpg">
+            </div>
+            <p>Không khí rộn ràng bên bếp lửa hồng, tiếng chiêng ngân vang.</p>
+            <div class="pg-num">Trang 4</div>
+        </div>
+        <div class="face back"></div>
+    </div>
 
-
-</div>
-<p>Múa xoang, cồng chiêng và bếp lửa rộn ràng.</p>
-<div class="pg-num">Trang 4</div>
-</div>
-<div class="face back"></div>
-</div>
-
-
+    <div class="paper">
+        <div class="face front">
+            <h2>5. Trang phục lễ hội</h2>
+            <div class="img-box slideshow">
+                <img class="active" src="bana.jpg">
+                <img src="ede.jpg">
+		<img src="giaray.jpg">
+		<img src="3.jpg">
+		<img src="2.jpg">
+		<img src="1.jpg">
+                <img src="4.jpg"><img src="mnong.jpg">
+            </div>
+            <p>Trang phục rực rỡ và những điệu múa xoang làm say đắm lòng người.</p>
+            <div class="pg-num">Trang 5</div>
+        </div>
+        <div class="face back"></div>
+    </div>
     <div class="paper">
         <div class="face front center-box">
             <i class="fa-solid fa-heart icon-decor"></i>
@@ -209,7 +219,6 @@ button:disabled{background:#ccc}
 <audio id="a2" src="thiennhien.wav"></audio>
 <audio id="a3" src="suthi.wav"></audio>
 <audio id="a4" src="trainghiem.wav"></audio>
-
 <script>
 const papers=[...document.querySelectorAll('.paper')];
 const bg=document.getElementById('bg');
@@ -218,10 +227,13 @@ const audioElements = {
     1: document.getElementById('a1'),
     2: document.getElementById('a2'),
     3: document.getElementById('a3'),
-    4: document.getElementById('a4')
+    4: document.getElementById('a4'),
+    // Nếu có file âm thanh cho trang 5 thì bỏ comment dòng dưới
+    // 5: document.getElementById('a5')
 };
 let loc=0, turning=false;
 
+// Tự động sắp xếp z-index
 papers.forEach((p,i)=>p.style.zIndex=papers.length-i);
 
 function stopAudio(){
@@ -255,12 +267,13 @@ function turn(d){
     if(d===1 && loc < papers.length-1){
         papers[loc].classList.add('flipped');
         loc++;
-        if(loc < 5 && loc > 0) playAudio(loc);
+        // Đã sửa logic: Tự động chạy audio nếu trang đó có khai báo, không giới hạn số cứng 5
+        if(loc < papers.length-1 && loc > 0) playAudio(loc);
     }
     if(d===-1 && loc > 0){
         loc--;
         papers[loc].classList.remove('flipped');
-        if(loc > 0 && loc < 5) playAudio(loc);
+        if(loc > 0 && loc < papers.length-1) playAudio(loc);
         else stopAudio();
     }
     
@@ -281,7 +294,7 @@ function initSlideshows() {
                 imgs[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % imgs.length;
                 imgs[currentIndex].classList.add('active');
-            }, 2000); // 2. CHỈNH SỬA: Giảm từ 2500 xuống 2000 để chuyển ảnh nhanh hơn
+            }, 2000); 
         }
     });
 }
