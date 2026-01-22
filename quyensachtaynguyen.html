@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bé Khám Phá Tây Nguyên</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Merriweather&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+    --book-w:500px;
+    --book-h:650px;
+    --bg:#8D6E63;
+    --page-bg:#FFF8E1;
+    --text:#3E2723;
+    --accent:#BF360C;
+    --speed:.8s;
+}
+*{box-sizing:border-box}
+body{
+    margin:0;display:flex;justify-content:center;align-items:center;
+    min-height:100vh;
+    background:var(--bg) url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+    font-family:'Merriweather',serif;
+    overflow:hidden;
+}
+.stage{perspective:1500px;width:var(--book-w);height:var(--book-h)}
+.book{width:100%;height:100%;position:relative;transform-style:preserve-3d}
+.paper{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    transform-origin:left;
+    transition:transform var(--speed) cubic-bezier(.645,.045,.355,1);
+    transform-style:preserve-3d;
+}
+.paper.flipped{transform:rotateY(-180deg)}
+
+.face{
+    position:absolute;width:100%;height:100%;
+    background:var(--page-bg);
+    backface-visibility:hidden;
+    padding:30px;
+    border-radius:10px;
+    border:1px solid #e0d0b0;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    display:flex;
+    flex-direction:column;
+}
+.face.back{
+    transform:rotateY(180deg);
+    background:transparent;border:none;box-shadow:none;
+}
+
+h1,h2{font-family:'Patrick Hand';color:var(--accent);text-align:center;margin:10px 0}
+h1{font-size:3.2rem}
+h2{font-size:2rem;border-bottom:2px dashed #FFCC80;padding-bottom:5px}
+p{font-size:1.1rem;line-height:1.6;color:var(--text);text-align:justify}
+
+.center-box{
+    flex:1;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;text-align:center;
+}
+.icon-decor{font-size:50px;color:#d84315;margin:15px}
+
+.img-box{
+    width:100%;height:260px;
+    border-radius:10px;overflow:hidden;margin:15px 0;
+    border:5px solid #fff;
+    box-shadow:0 4px 8px rgba(0,0,0,.15);
+    position:relative;
+    background: #eee;
+}
+.img-box img{
+    width:100%;height:100%;object-fit:cover;
+    position:absolute;top:0;left:0;
+    opacity:0;
+    transition:opacity 0.5s;
+}
+.img-box img.active{opacity:1}
+
+.pg-num{position:absolute;bottom:12px;right:18px;font-family:'Patrick Hand';color:#888}
+
+.controls{
+    position:fixed;bottom:20px;left:50%;
+    transform:translateX(-50%);
+    display:flex;gap:20px;z-index:50;
+}
+button{
+    background:#FF7043;color:#fff;border:none;
+    padding:12px 30px;font:18px 'Patrick Hand';
+    border-radius:40px;cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+    transition: 0.3s;
+}
+button:hover:not(:disabled){background:#e64a19}
+button:disabled{background:#ccc}
+
+#overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,.85);
+    z-index:999;color:white;
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
+}
+.pulse{animation:pulse 1.5s infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+</style>
+</head>
+
+<body>
+
+<div id="overlay">
+    <h1>Bé Khám Phá Tây Nguyên</h1>
+    <button id="btn-start" class="pulse">📖 Bắt đầu</button>
+</div>
+
+<div class="stage">
+<div id="book" class="book">
+
+    <div class="paper">
+        <div class="face front center-box">
+            <i class="fa-solid fa-sun icon-decor"></i>
+            <h1>QUYỂN SÁCH TÂY NGUYÊN</h1>
+            <p>Tác giả: Cô Trần Hồng Loan</p>
+        </div>
+        <div class="face back"></div>
+    </div>
+
+    <div class="paper">
+        <div class="face front">
+            <h2>1. Vùng đất nắng gió</h2>
+            <div class="img-box slideshow">
+                <img class="active" src="https://banmetravel.com/image/cache/catalog/tour/tay-nguyen/huyen-thoai-tay-nguyen-banme-travel-c005-468x572.jpg">
+                <img src="https://danviet.ex-cdn.com/files/f1/2020/6/8/images2894093115913419719771038118165-1591583953817-15915839538181380547908.jpg">
+            </div>
+            <p>Những con đường đất đỏ bazan trải dài dưới nắng vàng rực rỡ.</p>
+            <div class="pg-num">Trang 1</div>
+        </div>
+        <div class="face back"></div>
+    </div>
+
+    <div class="paper">
+        <div class="face front">
+            <h2>2. Thiên nhiên</h2>
+            <div class="img-box slideshow">
+                <img class="active" src="https://danviet.ex-cdn.com/files/f1/2020/6/8/images2894105915913419882111697985652-1591583992552-15915839925521489195182.jpg">
+                <img src="https://lalago.vn/wp-content/uploads/2025/07/Nha-rong-Kon-Tum-1.jpg">
+                <img src="https://danviet.ex-cdn.com/files/f1/2020/6/8/images28941045215913425957421347347293-1591583989363-15915839893642036842581.jpg">
+            </div>
+            <p>Núi rừng xanh mát và những ngôi nhà sàn yên bình giữa đại ngàn.</p>
+            <div class="pg-num">Trang 2</div>
+        </div>
+        <div class="face back"></div>
+    </div>
+
+    <div class="paper">
+        <div class="face front">
+            <h2>3. Sử thi Đam San</h2>
+            <div class="img-box slideshow">
+                <img class="active" src="https://banmetravel.com/image/cache/catalog/tour/tay-nguyen/huyen-thoai-tay-nguyen-banme-travel-c005-468x572.jpg">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6F6AAwR9SRAq4cbyCKGGeT-sIVLBjI_JMYA&s">
+            </div>
+            <p>Tiếng cồng chiêng vang vọng, kể về chàng Đam San dũng mãnh.</p>
+            <div class="pg-num">Trang 3</div>
+        </div>
+        <div class="face back"></div>
+    </div>
+
+    <div class="paper">
+        <div class="face front">
+            <h2>4. Lễ hội Cồng Chiêng</h2>
+            <div class="img-box slideshow">
+                <img class="active" src="lehoi1.jpg">
+               			 <img src="lehoi.jpg">
+               			 <img src="nhaccu.jpg">
+            </div>
+            <p>Không khí rộn ràng bên bếp lửa hồng, tiếng chiêng ngân vang.</p>
+            <div class="pg-num">Trang 4</div>
+        </div>
+        <div class="face back"></div>
+    </div>
+
+    <div class="paper">
+        <div class="face front">
+            <h2>5. Trang phục lễ hội</h2>
+            <div class="img-box slideshow">
+                <img class="active" src="bana.jpg">
+                <img src="ede.jpg">
+		<img src="giaray.jpg">
+		<img src="3.jpg">
+		<img src="2.jpg">
+		<img src="1.jpg">
+                <img src="4.jpg"><img src="mnong.jpg">
+            </div>
+            <p>Trang phục rực rỡ và những điệu múa xoang làm say đắm lòng người.</p>
+            <div class="pg-num">Trang 5</div>
+        </div>
+        <div class="face back"></div>
+    </div>
+    <div class="paper">
+        <div class="face front center-box">
+            <i class="fa-solid fa-heart icon-decor"></i>
+            <h2>Hẹn gặp lại bé!</h2>
+            <p>Chúc bé học giỏi và ngoan ngoãn ❤️</p>
+        </div>
+        <div class="face back"></div>
+    </div>
+
+</div>
+</div>
+
+<div class="controls">
+    <button id="prev" disabled>⬅ Trước</button>
+    <button id="next">Sau ➡</button>
+</div>
+
+<audio id="bg" src="nen.mp3" loop></audio>
+<audio id="flip" src="lat_sach.mp3"></audio>
+<audio id="a1" src="intro.wav"></audio>
+<audio id="a2" src="thiennhien.wav"></audio>
+<audio id="a3" src="suthi.wav"></audio>
+<audio id="a4" src="trainghiem.wav"></audio>
+<script>
+const papers=[...document.querySelectorAll('.paper')];
+const bg=document.getElementById('bg');
+const flip=document.getElementById('flip');
+const audioElements = {
+    1: document.getElementById('a1'),
+    2: document.getElementById('a2'),
+    3: document.getElementById('a3'),
+    4: document.getElementById('a4'),
+    // Nếu có file âm thanh cho trang 5 thì bỏ comment dòng dưới
+    // 5: document.getElementById('a5')
+};
+let loc=0, turning=false;
+
+// Tự động sắp xếp z-index
+papers.forEach((p,i)=>p.style.zIndex=papers.length-i);
+
+function stopAudio(){
+    Object.values(audioElements).forEach(a=>{if(a){a.pause();a.currentTime=0}});
+    bg.volume=.2;
+}
+
+function playAudio(i){
+    stopAudio();
+    if(audioElements[i]){
+        bg.volume=.08;
+        audioElements[i].onended=()=>bg.volume=.2;
+        audioElements[i].play().catch(()=>{});
+    }
+}
+
+document.getElementById('btn-start').onclick=()=>{
+    document.getElementById('overlay').remove();
+    bg.volume=.2;
+    bg.play().catch(()=>{});
+};
+
+document.getElementById('next').onclick=()=>turn(1);
+document.getElementById('prev').onclick=()=>turn(-1);
+
+function turn(d){
+    if(turning) return;
+    turning=true;
+    setTimeout(()=>turning=false, 900);
+
+    if(d===1 && loc < papers.length-1){
+        papers[loc].classList.add('flipped');
+        loc++;
+        // Đã sửa logic: Tự động chạy audio nếu trang đó có khai báo, không giới hạn số cứng 5
+        if(loc < papers.length-1 && loc > 0) playAudio(loc);
+    }
+    if(d===-1 && loc > 0){
+        loc--;
+        papers[loc].classList.remove('flipped');
+        if(loc > 0 && loc < papers.length-1) playAudio(loc);
+        else stopAudio();
+    }
+    
+    flip.currentTime = 0;
+    flip.play().catch(()=>{});
+    
+    document.getElementById('prev').disabled = (loc === 0);
+    document.getElementById('next').disabled = (loc === papers.length - 1);
+}
+
+function initSlideshows() {
+    const allSlideshows = document.querySelectorAll('.slideshow');
+    allSlideshows.forEach(container => {
+        const imgs = container.querySelectorAll('img');
+        let currentIndex = 0;
+        if(imgs.length > 0) {
+            setInterval(() => {
+                imgs[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % imgs.length;
+                imgs[currentIndex].classList.add('active');
+            }, 2000); 
+        }
+    });
+}
+initSlideshows();
+</script>
+</body>
+</html>
