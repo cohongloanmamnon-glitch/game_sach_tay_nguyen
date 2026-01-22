@@ -170,8 +170,8 @@ button:disabled{background:#ccc}
             <h2>4. Lễ hội Cồng Chiêng</h2>
             <div class="img-box slideshow">
                 <img class="active" src="lehoi1.jpg">
-               			 <img src="lehoi.jpg">
-               			 <img src="nhaccu.jpg">
+                <img src="lehoi.jpg">
+                <img src="nhaccu.jpg">
             </div>
             <p>Không khí rộn ràng bên bếp lửa hồng, tiếng chiêng ngân vang.</p>
             <div class="pg-num">Trang 4</div>
@@ -185,10 +185,10 @@ button:disabled{background:#ccc}
             <div class="img-box slideshow">
                 <img class="active" src="bana.jpg">
                 <img src="ede.jpg">
-		<img src="giaray.jpg">
-		<img src="3.jpg">
-		<img src="2.jpg">
-		<img src="1.jpg">
+                <img src="giaray.jpg">
+                <img src="3.jpg">
+                <img src="2.jpg">
+                <img src="1.jpg">
                 <img src="4.jpg"><img src="mnong.jpg">
             </div>
             <p>Trang phục rực rỡ và những điệu múa xoang làm say đắm lòng người.</p>
@@ -196,6 +196,7 @@ button:disabled{background:#ccc}
         </div>
         <div class="face back"></div>
     </div>
+
     <div class="paper">
         <div class="face front center-box">
             <i class="fa-solid fa-heart icon-decor"></i>
@@ -219,18 +220,22 @@ button:disabled{background:#ccc}
 <audio id="a2" src="thiennhien.wav"></audio>
 <audio id="a3" src="suthi.wav"></audio>
 <audio id="a4" src="trainghiem.wav"></audio>
+<audio id="a5" src="trangphuc.wav"></audio>
+
 <script>
 const papers=[...document.querySelectorAll('.paper')];
 const bg=document.getElementById('bg');
 const flip=document.getElementById('flip');
+
+// Cập nhật danh sách audioElements
 const audioElements = {
     1: document.getElementById('a1'),
     2: document.getElementById('a2'),
     3: document.getElementById('a3'),
     4: document.getElementById('a4'),
-    // Nếu có file âm thanh cho trang 5 thì bỏ comment dòng dưới
-    // 5: document.getElementById('a5')
+    5: document.getElementById('a5') // Đã thêm cho trang 5
 };
+
 let loc=0, turning=false;
 
 // Tự động sắp xếp z-index
@@ -267,7 +272,7 @@ function turn(d){
     if(d===1 && loc < papers.length-1){
         papers[loc].classList.add('flipped');
         loc++;
-        // Đã sửa logic: Tự động chạy audio nếu trang đó có khai báo, không giới hạn số cứng 5
+        // Play audio nếu trang đó có trong danh sách audioElements
         if(loc < papers.length-1 && loc > 0) playAudio(loc);
     }
     if(d===-1 && loc > 0){
